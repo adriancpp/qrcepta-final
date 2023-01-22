@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class PrescriptionModel extends Model
 {
-    protected $table = 'prescription';
-    protected $allowedFields = ['patient_id', 'author_id', 'recommendation', 'medicines', 'updated_at', 'security_code', 'status'];
+    protected $table = 'prescriptions';
+    protected $allowedFields = ['patient_id', 'author_id', 'recommendation', 'medicines', 'updated_at', 'security_code', 'status', 'qr_code_img'];
 
     protected $useTimestamps = true;
 

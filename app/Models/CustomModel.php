@@ -30,11 +30,11 @@ class CustomModel
 
     function allUserPrescriptions($id)
     {
-        return $this->db->table('prescription')
-            ->select('*, prescription.created_at, prescription.id')
-            ->join('user', 'prescription.patient_id = user.id')
-            ->where('prescription.patient_id ', $id)
-            ->orderBy('prescription.created_at', 'DESC')
+        return $this->db->table('prescriptions')
+            ->select('*, prescriptions.creation_date, prescriptions.prescription_id')
+            ->join('user_patient', 'prescriptions.patient_id = user_patient.id')
+            ->where('prescriptions.patient_id ', $id)
+            ->orderBy('prescriptions.creation_date', 'DESC')
             ->get()->getResult();
     }
 
