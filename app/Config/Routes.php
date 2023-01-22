@@ -17,7 +17,7 @@ if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Users');
+$routes->setDefaultController('UserController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -37,6 +37,16 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'UserController::index', ['filter' => 'noauth']);
 $routes->match(['get','post'],'register', 'UserController::register', ['filter' => 'noauth']);
+$routes->match(['get','post'],'profile', 'UserController::profile', ['filter' => 'auth']);
+$routes->get('logout', 'UserController::logout');
+$routes->get('dashboard', 'DashboardController::index', ['filter' => 'auth']);
+$routes->get('createPrescription', 'DashboardController::createPrescription', ['filter' => 'auth']);
+$routes->get('searchPrescription', 'DashboardController::searchPrescription', ['filter' => 'auth']);
+$routes->get('detailsPrescription/(:any)', 'DashboardController::detailsPrescription/$1', ['filter' => 'auth']);
+
+$routes->get('prescriptionList', 'DashboardController::prescriptionList', ['filter' => 'auth']);
+
+$routes->get('prescriptionRead', 'DashboardController::prescriptionRead', ['filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------
