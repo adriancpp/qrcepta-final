@@ -183,9 +183,17 @@ class DashboardController extends BaseController
             ->where('prescription_id', $id)
             ->first();
 
+
+
+        if($model)
+        {
         $data['prescription'] = $model;
 
         //echo '<img src="'.$model['qr_code_img'].'"/>';
+
+
+
+
         $bytes = $model['qr_code_img'];
         $file_name = "test.jpeg";
         $unes_image = pg_unescape_bytea($bytes);
@@ -197,7 +205,7 @@ class DashboardController extends BaseController
 //        echo '<img style='width:20%'src="data:image/jpeg;base64,'.base64_encode( $unes_image ).'"/>';
 
         $data['unes'] = '<img style=\'width:70%\' src="data:image/jpeg;base64,'.base64_encode( $unes_image ).'"/>';
-
+        }
         echo view('templates/header', $data);
         echo view('details_prescription_form', $data);
         echo view('templates/footer', $data);
