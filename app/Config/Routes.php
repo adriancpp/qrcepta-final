@@ -37,6 +37,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'UserController::index', ['filter' => 'noauth']);
 $routes->match(['get','post'],'register', 'UserController::register', ['filter' => 'noauth']);
+$routes->match(['get','post'],'forgot', 'UserController::forgotPassword', ['filter' => 'noauth']);
 $routes->match(['get','post'],'profile', 'UserController::profile', ['filter' => 'auth']);
 $routes->get('logout', 'UserController::logout');
 $routes->get('dashboard', 'DashboardController::index', ['filter' => 'auth']);

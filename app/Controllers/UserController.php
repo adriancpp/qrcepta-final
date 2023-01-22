@@ -77,6 +77,56 @@ class UserController extends BaseController
         echo view('templates/footer', $data);
     }
 
+    public function forgotPassword()
+    {
+        $data = [];
+
+        helper(['form']);
+
+        if($this->request->getMethod() == 'post')
+        {
+            $rules = [
+                'email' => 'required',
+                'password' => 'required|min_length[8]|max_length[255]',
+                'password_confirm' => 'matches[password]',
+            ];
+
+            if( !$this->validate($rules))
+            {
+                $data['validation'] = $this->validator;
+            }
+            else
+                {
+                    $model = new UserModel();
+
+                    $user = $model->where('email', $this->request->getVar('email'))
+                        ->first();
+
+                    if($user)
+                    {
+                        $model = new UserModel();
+
+                        $newData = [
+                            'id' => $user['id'],
+                            'password' => $this->request->getPost('password'),
+                        ];
+
+                        $model->save($newData);
+                        session()->setFlashdata('success', 'Successfuly changed password');
+                        return redirect()->to('/');
+                    }
+                    else
+                    {
+                        session()->setFlashdata('danger', 'Email not found');
+                    }
+            }
+        }
+
+        echo view('templates/header', $data);
+        echo view('forgot_password', $data);
+        echo view('templates/footer', $data);
+    }
+
     private function setUserSession($user)
     {
         $data = [
